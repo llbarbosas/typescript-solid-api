@@ -18,6 +18,7 @@ export class UserController {
     const { email, password, name } = req.body;
     const user = new User({ email, password, name });
 
+    this.userRepository.save(user);
     // this.mailProvider.send(confirmationMail)
 
     return res.status(201).send({ user });
