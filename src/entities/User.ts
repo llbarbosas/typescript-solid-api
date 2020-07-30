@@ -1,7 +1,7 @@
 import { uuid } from "uuidv4";
 import bcrypt from "bcrypt";
 
-const { DOMAIN = "express.com", SECRET = "secret" } = process.env;
+const { DOMAIN = "express.com" } = process.env;
 
 export enum Role {
   Admin,
@@ -25,7 +25,7 @@ export class User {
     this.role = new RegExp(`@${DOMAIN}$`).test(data.email)
       ? Role.Admin
       : Role.User;
-    this.password = created?.password || bcrypt.hashSync(data.password, SECRET);
+    this.password = created?.password || bcrypt.hashSync(data.password, 2);
   }
 
   comparePassword(password: string): Promise<boolean> {
