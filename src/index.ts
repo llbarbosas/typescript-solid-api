@@ -1,8 +1,6 @@
 import { app } from "./app";
-import dotenv from "dotenv";
+import env from "./config/env";
 
-dotenv.config();
-
-const { PORT = 3000 } = process.env;
+const { PORT } = env;
 
 app.listen(PORT, () => console.log(`API listening on port ${PORT}`));

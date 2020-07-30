@@ -1,7 +1,8 @@
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
+import env from "../config/env";
 
-const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = env;
 
 interface IAddress {
   email: string;
