@@ -67,6 +67,7 @@ export class UserController {
     user.emailVerified = true;
 
     await this.userRepository.update("id", user.id, user);
+    await this.emailVerificationRepository.delete("random", random);
 
     return res.status(200).send({ message: "E-mail verified" });
   }
