@@ -19,7 +19,7 @@ export class UserController {
   async create(req: Request, res: Response): Promise<Response> {
     const { email, password, name } = req.body;
 
-    const anotherUser = await this.userRepository.findBy("email", email);
+    const anotherUser = await this.userRepository.findBy({ email });
 
     if (anotherUser)
       return res.status(400).send({ message: "Este e-mail já foi cadastrado" });
@@ -50,24 +50,22 @@ export class UserController {
   async confirmMail(req: Request, res: Response): Promise<Response> {
     const { random } = req.params;
 
-    const verification = await this.emailVerificationRepository.findBy(
-      "random",
-      random
-    );
+    const verification = await this.emailVerificationRepository.findBy({
+      random,
+    });
 
     if (!verification) return res.status(400).send({ message: "Unknown code" });
 
-    const user = await this.userRepository.findBy(
-      "email",
-      verification.userEmail
-    );
+    const user = await this.userRepository.findBy({
+      email: verification.userEmail,
+    });
 
     if (!user) return res.status(400).send({ message: "Unknown error" });
 
     user.emailVerified = true;
 
-    await this.userRepository.update("id", user.id, user);
-    await this.emailVerificationRepository.delete("random", random);
+    await this.userRepository.update({ id: user.id }, user);
+    await this.emailVerificationRepository.delete({ random });
 
     return res.status(200).send({ message: "E-mail verified" });
   }
