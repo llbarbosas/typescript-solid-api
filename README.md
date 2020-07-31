@@ -2,9 +2,11 @@
 <h2 align="center">SOLID with Typescript 🔏</h2>
 
 ## ✅ TODO
+- [x] User functionalities
+  - [x] getAll
+  - [x] create
+  - [x] confirmMail
+  - [x] authenticate
+- [ ] User testing
 - [ ] Auth middleware (role based)
-- [ ] UserController tests
-  - [ ] confirmMail
-  - [ ] authenticate
-- [ ] ServicesController
-- [ ] ProductsController
+- [ ] Products functionalities
