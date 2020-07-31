@@ -20,5 +20,6 @@ const bind = (obj: any, func: keyof typeof obj) => obj[func].bind(obj);
 router.get("/users", bind(userController, "getAll"));
 router.post("/users", bind(userController, "create"));
 router.get("/users/verify/:random", bind(userController, "confirmMail"));
+router.post("/authenticate", bind(userController, "authenticate"));
 
 export { router };

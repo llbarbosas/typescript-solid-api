@@ -3,6 +3,7 @@ import { IMailProvider } from "../providers/MailProvider";
 import { User } from "../entities/User";
 import { EmailVerification } from "../entities/EmailVerification";
 import { Request, Response } from "express";
+import { AuthToken } from "../entities/AuthToken";
 
 export class UserController {
   constructor(
@@ -68,5 +69,26 @@ export class UserController {
     await this.emailVerificationRepository.delete({ random });
 
     return res.status(200).send({ message: "E-mail verified" });
+  }
+
+  async authenticate(req: Request, res: Response): Promise<Response> {
+    const { email, password } = req.body;
+
+    const user = await this.userRepository.findBy({ email });
+
+    if (!user) return res.status(400).send({ message: "Unknown credentials" });
+
+    const result = user.comparePassword(password);
+
+    if (!result)
+      return res.status(400).send({ message: "Unknown credentials" });
+
+    try {
+      const token = new AuthToken(user);
+
+      return res.status(200).send({ token: token.value });
+    } catch (error) {
+      return res.status(400).send({ message: error.message });
+    }
   }
 }
