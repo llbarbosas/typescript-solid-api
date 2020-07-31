@@ -11,8 +11,8 @@ export class MockRepository<T> implements Repository<T> {
     return this.data.find((el) => compareQuery(query, el));
   }
 
-  async save(data: T): Promise<void> {
-    this.data.push(data);
+  async save(...data: T[]): Promise<void> {
+    this.data = [...this.data, ...data];
   }
 
   async update(query: Query<T>, data: T): Promise<void> {
@@ -20,6 +20,10 @@ export class MockRepository<T> implements Repository<T> {
   }
 
   async delete(query: Query<T>): Promise<void> {
-    this.data = this.data.filter((el) => compareQuery(query, el));
+    this.data = this.data.filter((el) => !compareQuery(query, el));
+  }
+
+  async count(): Promise<number> {
+    return this.data.length;
   }
 }
