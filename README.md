@@ -7,6 +7,7 @@
   - [x] create
   - [x] confirmMail
   - [x] authenticate
-- [ ] User testing
+- [ ] User module tests
 - [ ] Auth middleware (role based)
 - [ ] Products module
+- [ ] Products module tests
