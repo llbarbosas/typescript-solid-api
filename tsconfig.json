@@ -7,5 +7,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["./*.js"]
+  "exclude": ["./*.js"],
+  "include": ["./types/**/*"]
 }

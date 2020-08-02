@@ -1,6 +1,11 @@
-import { User } from "./User";
+import { User, Role } from "./User";
 import jwt from "jsonwebtoken";
 import env from "../config/env";
+
+export interface AuthTokenData {
+  email: string;
+  role: Role;
+}
 
 const { SECRET } = env;
 
@@ -8,7 +13,6 @@ export class AuthToken {
   readonly value: string;
 
   constructor(user: User) {
-    if (!user.emailVerified) throw new Error("E-mail not verified");
     if (!SECRET) throw new Error("Internal error");
 
     this.value = jwt.sign({ email: user.email, role: user.role }, SECRET, {
