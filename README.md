@@ -3,6 +3,8 @@
 
 ## 🚀 About 
 ### 🚧 TODO
+- [x] Repositories (mock)
+- [ ] MongoDB repository implementation
 - [x] User module
   - [x] getAll
   - [x] create
